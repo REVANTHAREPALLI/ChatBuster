@@ -1,0 +1,12 @@
+<!-- Form for creating and updating room model -->
+{% extends 'lead.html' %}
+
+{% block content %}
+
+<form method="post" action="">
+    {% csrf_token %} <!--ensures no mallicious activity done-->
+    {{form.as_p}}
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

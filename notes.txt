@@ -1,0 +1,1 @@
+Django has by default "session based authentication" works same as admin panel

@@ -1,0 +1,88 @@
+{% extends 'lead.html' %} {% block content %}
+
+<style>
+  .home {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    color: white;
+  }
+  .topics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 10px;
+    border: 1px solid black;
+  }
+  .topics a {
+    width: 200px;
+    height: 40px;
+    border-radius: 15px;
+    border: 1px solid black;
+    padding: 3px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .topics a span {
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    padding: 1px 4pxsss;
+  }
+</style>
+
+<div class="top">
+  <nav>
+    <h2>Home</h2>
+  </nav>
+</div>
+<div class="home">
+  <div class="topics">
+    <div>
+      <h3>Browse here</h3>
+      <hr />
+    </div>
+    <form method="get">
+      <input type="text" name="q" />
+    </form>
+    <a href="{% url 'home' %}"
+      ><p>All</p>
+      <span>{{total}}</span></a
+    >
+    {% for topic,cnt in topics_count %}
+    <a href="{% url 'home' %}?q={{topic.name}}"
+      ><p>{{topic}}</p>
+      <span>{{cnt}}</span></a
+    >
+    {% endfor %}
+  </div>
+  <div class="room">
+    <a href="{% url 'create-room' %}">create-room</a>
+    {% if query %}
+    <h3>found {{room_count}} rooms for "{{query}}"</h3>
+    {% else %}
+    <h3>found {{room_count}} rooms</h3>
+    {% endif %} {% for ro in rooms %}
+    <h5>@{{ro.host}}</h5>
+    <!-- <h2>{{ro.id}}--<a href="room/{{ro.id}}">{{ro.name}}</a></h2> -->
+    <h2><a href="{% url 'room' ro.id %}">{{ro.name}}</a></h2>
+    <h4>TOPIC---{{ro.topic}}</h4>
+    {% if ro.host == request.user %}
+    <br /><a href="{% url 'update-room' ro.id %}">edit</a
+    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'delete-room' ro.id %}"
+      >delete</a
+    >
+    {% endif %}
+    <hr />
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

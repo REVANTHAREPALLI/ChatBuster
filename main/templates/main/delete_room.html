@@ -1,0 +1,20 @@
+{% extends 'lead.html' %} {% block content %} {% if q == "room" %}
+<div class="room-delete">
+  <p>Are you sure you want to delete <b>{{nm.name}}</b></p>
+  <form method="post" action="">
+    {% csrf_token %}
+    <a href="{{request.META.HTTP_REFERER}}">cancel</a>
+    <input type="submit" value="confirm" />
+  </form>
+</div>
+{% else %}
+<div class="message-delete">
+  <p>Are you sure you want to delete this message</p>
+  <em>{{obj}}</em>
+  <form method="post" action="">
+    {% csrf_token %}
+    <a href="{{request.META.HTTP_REFERER}}">cancel</a>
+    <input type="submit" value="confirm" />
+  </form>
+</div>
+{% endif %} {% endblock content %}

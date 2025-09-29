@@ -1,0 +1,36 @@
+<style>
+    h3{
+        margin-top: 0;
+    }
+    .nav{
+        display: flex;
+        justify-content: space-between;
+    }
+    /* #navi{
+        margin-top: 30px;
+    } */
+    .search{
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr;
+        margin-top: 30px;
+    }
+</style>
+<div class="nav">
+    <a href="/">
+        <h1>Logo</h1>
+    </a>
+    <div class="search">
+        <form method="get" action="{% url 'home' %}?">
+            <input type="text" name="q" id="navi" placeholder="search rooms here..">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </form>
+        {% if request.user.is_authenticated %}
+            <h3>{{request.user}}</h3>
+            <a href="{% url 'logout' %}">logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+</div>
+
+<hr>
